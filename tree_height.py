@@ -1,53 +1,47 @@
-#python3
-
+#Lauma Gailite 2. grupa
 import sys
 import threading
-import numpy as np
-
-
 
 def compute_height(n, parents):
-    tree = np.empty((n,), dtype = object)
-    root == -1
-
-    for i, parent in enumerate(parents):
-        if parent == -1:
+    nodes = [[] for _ in range(n)]
+    for i in range(n):
+        p = parents[i]
+        if p == -1:
             root = i
         else:
-            if tree[parent] is None:
-                tree[parent] = [i]
-            else:
-                tree[parent].append(i)
+            nodes[p].append(i)
 
-    def augst(node):
-        if tree[node] is None:
+    # koka augstums 
+    def compute_depth(node):
+        if not nodes[node]:
             return 1
-        return max([height(child) for child in koks[node]], default = 0 ) +1
+        max_depth = 0
+        for child in nodes[node]:
+            depth = compute_depth(child)
+            max_depth = max(max_depth, depth)
+        return max_depth + 1
+
+    return compute_depth(root)
 
 def main():
-    #input_type = input("input 'i' or 'f': ")
+    input_type = input()
 
-    if input_type == 'i':
-        n = int(input("Enter the number of elements: "))
-        parents = list(map(int, input("enter parents of nodes")))
-
-    elif input_type == 'f':
-        filename = input("Enter file name: ").strip()
-        if 'a' in filename:
-            print("File name can't contain letter 'a'. ")
-            return
-        
-        with open(f"./test/{filename}", 'r') as f:
-            n = int(f.readline().strip())
+    if 'I' in input_type:
+        n = int(input())
+        parents = list(map(int, input().split()))
+        height = compute_height(n, parents)
+        print(height)
+    elif 'F' in input_type:
+        filename = input()
+        with open("test/" + filename, 'r') as f:
+            n = int(f.readline())
             parents = list(map(int, f.readline().split()))
-
+            height = compute_height(n, parents)
+            print(height)
     else:
-        print("invalid input. ")
-        return
-
-    print(compute_height(n, parents))
-
+        print("Invalid input, try again/")
+        exit()
 
 sys.setrecursionlimit(10**7)
-threading.stack_size(2**27)
+threading.stack_size(2**27) 
 threading.Thread(target=main).start()
