@@ -21,7 +21,7 @@ def compute_height(n, parents):
         return max([height(child) for child in koks[node]], default = 0 ) +1
 
 def main():
-    input_type = input("input 'i' or 'f': ")
+    #input_type = input("input 'i' or 'f': ")
 
     if input_type == 'i':
         n = int(input("Enter the number of elements: "))
