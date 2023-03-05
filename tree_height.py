@@ -39,7 +39,7 @@ def main():
             height = compute_height(n, parents)
             print(height)
     else:
-        print("Invalid input, try again/")
+        print("Invalid input, try again.")
         exit()
 
 sys.setrecursionlimit(10**7)
