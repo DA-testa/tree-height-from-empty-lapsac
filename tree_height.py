@@ -1,6 +1,10 @@
+#python3
+
 import sys
 import threading
 import numpy as np
+
+
 
 def compute_height(n, parents):
     tree = np.empty((n,), dtype = object)
